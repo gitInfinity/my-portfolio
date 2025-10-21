@@ -132,21 +132,6 @@ section {
   color: rgb(115, 3, 167);
 }
 
-header .logo {
-  font-size: 1.9rem;
-  font-weight: 800;
-  text-decoration: none;
-  color: #0e2431;
-}
-
-header .logo i {
-  font-size: 2.2rem;
-}
-
-header .logo:hover {
-  color: #fc8c05;
-}
-
 header .navbar ul {
   list-style: none;
   display: flex;
@@ -609,6 +594,7 @@ header .navbar ul li a:hover {
   transition: 0.2s;
 }
 
+
 .skills .container .bar:hover {
   box-shadow: 0 8px 10px rgba(0, 2, 68, 0.8) !important;
   background-color: rgba(0, 0, 0, 0.9) !important;
@@ -636,6 +622,10 @@ header .navbar ul li a:hover {
 .skills .container .bar .info img {
   width: 48px;
   height: 48px;
+}
+
+.skills .container .bar .info img[src*="word2vec"] {
+  filter: invert(1);
 }
 
 /* skills media queries starts*/
