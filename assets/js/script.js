@@ -71,7 +71,7 @@ document.addEventListener('visibilitychange',
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["Flutter Development", "Machine Learning", "Artificial Intelligence"],
+    strings: ["Machine Learning", "Artificial Intelligence", "Computer Vision", "Agentic AI"],
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
