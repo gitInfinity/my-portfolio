@@ -59,7 +59,7 @@ $(document).ready(function () {
 document.addEventListener('visibilitychange',
     function () {
         if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Jigar Sable";
+            document.title = "Muhammad Rouhan | AI Systems Engineer";
             $("#favicon").attr("href", "assets/images/favicon.png");
         }
         else {
@@ -70,23 +70,47 @@ document.addEventListener('visibilitychange',
 
 
 // <!-- typed js effect starts -->
-var typed = new Typed(".typing-text", {
-    strings: ["Machine Learning", "Artificial Intelligence", "Computer Vision", "Agentic AI"],
-    loop: true,
-    typeSpeed: 50,
-    backSpeed: 25,
-    backDelay: 500,
-});
+if (document.querySelector(".typing-text") && typeof Typed !== 'undefined') {
+    var typed = new Typed(".typing-text", {
+        strings: ["LLMs", "RAG Pipelines", "AI Systems", "Deep Learning"],
+        loop: true,
+        typeSpeed: 50,
+        backSpeed: 25,
+        backDelay: 500,
+    });
+}
 // <!-- typed js effect ends -->
 
 async function fetchData(type = "skills") {
-    let response
-    type === "skills" ?
-        response = await fetch("skills.json")
-        :
-        response = await fetch("https://api.github.com/users/gitInfinity/repos")
-    const data = await response.json();
-    return data;
+    try {
+        let response
+        type === "skills" ?
+            response = await fetch("skills.json")
+            :
+            response = await fetch("https://api.github.com/users/gitInfinity/repos?sort=updated&per_page=10")
+        if (!response.ok) throw new Error('Fetch failed');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.warn(`Failed to fetch ${type}:`, error);
+        if (type === "skills") {
+            // Fallback: inline the skills data so the section always renders
+            return [
+                { name: "Python", icon: "https://img.icons8.com/color/48/000000/python--v1.png" },
+                { name: "TensorFlow", icon: "https://img.icons8.com/color/48/000000/tensorflow.png" },
+                { name: "Scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
+                { name: "C++", icon: "https://img.icons8.com/color/48/000000/c-plus-plus-logo.png" },
+                { name: "Firebase", icon: "https://img.icons8.com/color/48/000000/firebase.png" },
+                { name: "Git", icon: "https://img.icons8.com/color/48/000000/git.png" },
+                { name: "GitHub", icon: "https://img.icons8.com/glyph-neue/48/ffffff/github.png" },
+                { name: "MySQL", icon: "https://img.icons8.com/color/48/000000/mysql-logo.png" },
+                { name: "Flutter", icon: "https://img.icons8.com/color/48/000000/flutter.png" },
+                { name: "Kotlin", icon: "https://img.icons8.com/color/48/000000/kotlin.png" },
+                { name: "Android", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg" }
+            ];
+        }
+        return [];
+    }
 }
 
 function showSkills(skills) {
@@ -104,44 +128,91 @@ function showSkills(skills) {
     skillsContainer.innerHTML = skillHTML;
 }
 
-function showProjects(projects) {
+async function getPriorityList() {
+    try {
+        const res = await fetch('/projects.json');
+        if (!res.ok) throw new Error('No projects.json');
+        const json = await res.json();
+        if (Array.isArray(json)) return json;
+        if (json && Array.isArray(json.priority)) return json.priority;
+    } catch (err) {
+        // fallback priority list
+        return ["Nexus", "MedlinePlus-Chatbot"];
+    }
+}
+
+async function showProjects(projects) {
     let projectsContainer = document.querySelector("#work-container");
     let projectHTML = "";
-    projects.slice(0, 10).forEach(project => {
+
+    // Filter out forks
+    const originalProjects = projects.filter(p => !p.fork);
+
+    // Client-side priority list: read from /projects.json (fallback to built-in)
+    const priorityNames = await getPriorityList();
+
+    // Build an ordered list with priority items first, then the rest
+    const remaining = [...originalProjects];
+    const prioritized = [];
+    priorityNames.forEach(name => {
+        const idx = remaining.findIndex(p => p.name && p.name.toLowerCase() === name.toLowerCase());
+        if (idx > -1) {
+            prioritized.push(remaining[idx]);
+            remaining.splice(idx, 1);
+        }
+    });
+
+    // Final ordered list — take top 4 to display, rest available via View All
+    const originalProjectsOrdered = prioritized.concat(remaining).slice(0, 4);
+
+    if (originalProjectsOrdered.length === 0) {
+        // Fallback: show placeholder cards if API fails
+        projectsContainer.innerHTML = `
+        <div class="box">
+          <div class="content">
+            <div class="tag">
+              <h3>AI / ML Projects</h3>
+              <span class="code-comment">// coming soon</span>
+            </div>
+            <div class="desc">
+              <p>Projects are being loaded from GitHub. Visit my GitHub profile to see the latest work.</p>
+              <div class="btns">
+                <a href="https://github.com/gitInfinity" class="btn" target="_blank">View GitHub <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>`;
+        return;
+    }
+
+    originalProjectsOrdered.forEach(project => {
+        const langTag = project.language
+            ? `<span class="tech-tag">${project.language}</span>`
+            : '';
+
         projectHTML += `
         <div class="box tilt">
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.description || "No description available."}</p>
-          <div class="btns">
-            ${project.homepage ? `<a href="${project.homepage}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>` : ''}
-            <a href="${project.html_url}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+          <div class="content">
+            <div class="tag">
+              <h3>${project.name}</h3>
+              <span class="code-comment">// ${project.language || "repo"}</span>
+            </div>
+            <div class="desc">
+              <p>${project.description || "No description available."}</p>
+              <div class="tech-tags">
+                ${langTag}
+              </div>
+              <div class="btns">
+                ${project.homepage ? `<a href="${project.homepage}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>` : ''}
+                <a href="${project.html_url}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>`
+        </div>`
     });
     projectsContainer.innerHTML = projectHTML;
 
-    // <!-- tilt js effect starts -->
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
-        max: 15,
-    });
-    // <!-- tilt js effect ends -->
-
-    /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
-
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
+    // removed duplicate VanillaTilt/ScrollReveal init here — global init handles it
 
 }
 
@@ -155,7 +226,7 @@ fetchData("projects").then(data => {
 
 // <!-- tilt js effect starts -->
 VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    max: 15,
+    max: 5,
 });
 // <!-- tilt js effect ends -->
 
@@ -204,47 +275,41 @@ var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
 
 /* ===== SCROLL REVEAL ANIMATION ===== */
 const srtop = ScrollReveal({
-    origin: 'top',
-    distance: '80px',
-    duration: 1000,
-    reset: true
+    origin: 'bottom',
+    distance: '20px',
+    duration: 400,
+    reset: false,
+    opacity: 0,
+    easing: 'ease'
 });
 
 /* SCROLL HOME */
-srtop.reveal('.home .content h3', { delay: 200 });
-srtop.reveal('.home .content p', { delay: 200 });
-srtop.reveal('.home .content .btn', { delay: 200 });
-
-srtop.reveal('.home .image', { delay: 400 });
-srtop.reveal('.home .linkedin', { interval: 600 });
-srtop.reveal('.home .github', { interval: 800 });
-srtop.reveal('.home .twitter', { interval: 1000 });
-srtop.reveal('.home .telegram', { interval: 600 });
-srtop.reveal('.home .instagram', { interval: 600 });
-srtop.reveal('.home .dev', { interval: 600 });
+srtop.reveal('.home .content h1', { delay: 200 });
+srtop.reveal('.home .content p', { delay: 300 });
+srtop.reveal('.home .content .btn', { delay: 400 });
+srtop.reveal('.home .socials', { delay: 500 });
 
 /* SCROLL ABOUT */
 srtop.reveal('.about .content h3', { delay: 200 });
 srtop.reveal('.about .content .tag', { delay: 200 });
-srtop.reveal('.about .content p', { delay: 200 });
-srtop.reveal('.about .content .box-container', { delay: 200 });
-srtop.reveal('.about .content .resumebtn', { delay: 200 });
-
+srtop.reveal('.about .content p', { delay: 300 });
+srtop.reveal('.about .content .box-container', { delay: 400 });
+srtop.reveal('.about .content .resumebtn', { delay: 400 });
 
 /* SCROLL SKILLS */
-srtop.reveal('.skills .container', { interval: 200 });
-srtop.reveal('.skills .container .bar', { delay: 400 });
+srtop.reveal('.skills .container', { interval: 100 });
+srtop.reveal('.skills .container .bar', { delay: 200 });
 
 /* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });
 
 /* SCROLL PROJECTS */
-srtop.reveal('.work .box', { interval: 200 });
+srtop.reveal('.work .box', { interval: 100 });
 
 /* SCROLL EXPERIENCE */
-srtop.reveal('.experience .timeline', { delay: 400 });
-srtop.reveal('.experience .timeline .container', { interval: 400 });
+srtop.reveal('.experience .timeline', { delay: 200 });
+srtop.reveal('.experience .timeline .container', { interval: 200 });
 
 /* SCROLL CONTACT */
-srtop.reveal('.contact .container', { delay: 400 });
-srtop.reveal('.contact .container .form-group', { delay: 400 });
+srtop.reveal('.contact .container', { delay: 200 });
+srtop.reveal('.contact .container .form-group', { delay: 300 });

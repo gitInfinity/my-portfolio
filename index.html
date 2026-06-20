@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="keywords"
-    content="muhammad rouhan, portfolio, flutter developer, ai/ml engineer, machine learning, fast nuces, karachi, personal portfolio" />
-  <meta name="description" content="Welcome to Muhammad Rouhan's Portfolio. Flutter Developer and AI/ML Engineer." />
+    content="muhammad rouhan, portfolio, ai systems engineer, machine learning, llm, rag, fast nuces, karachi, personal portfolio" />
+  <meta name="description" content="Muhammad Rouhan — AI Systems Engineer specializing in LLMs, RAG, and production AI systems." />
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link id='favicon' rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
-  <title>Portfolio | Muhammad Rouhan</title>
+  <title>Muhammad Rouhan | AI Systems Engineer</title>
 </head>
 
 <body oncontextmenu="return false">
@@ -23,6 +23,8 @@
   </div>
 
   <header>
+
+    <a href="#home" class="logo">&lt;rouhan /&gt;</a>
 
     <div id="menu" class="fas fa-bars"></div>
     <nav class="navbar">
@@ -37,15 +39,14 @@
       </ul>
     </nav>
   </header>
-  <section class="home" id="home">
-    <div id="particles-js"></div>
 
+  <section class="home grid-bg" id="home">
     <div class="content">
-      <h2>Hi There,<br /> I'm Muhammad <span>Rouhan</span></h2>
-      <p>i am into <span class="typing-text"></span></p>
-      <a href="#about" class="btn"><span>About Me</span>
-        <i class="fas fa-arrow-circle-down"></i>
-      </a>
+      <span class="code-comment">/* AI Systems Engineer */</span>
+      <h1>Muhammad <span>Rouhan</span></h1>
+      <p>Building intelligent systems at the intersection of LLMs, RAG, and production-grade AI.</p>
+      <span class="typing-text"></span>
+      <a href="#work" class="btn primary">View Work <i class="fas fa-arrow-right"></i></a>
       <div class="socials">
         <ul class="social-icons">
           <li><a class="linkedin" aria-label="LinkedIn" href="https://www.linkedin.com/in/muhammad-rouhan-a7545222b/"
@@ -55,29 +56,27 @@
         </ul>
       </div>
     </div>
-    <div class="image">
-      <img draggable="false" class="tilt" src="./assets/images/hero.png" alt="">
-    </div>
   </section>
+
   <section class="about" id="about">
     <h2 class="heading"><i class="fas fa-user-alt"></i> About <span>Me</span></h2>
 
     <div class="row">
 
       <div class="image">
-        <img draggable="false" class="tilt" src="./assets/images/profile2.jpeg" alt="">
+        <img draggable="false" class="tilt" src="./assets/images/rouhan.jpg" alt="Rouhan">
       </div>
       <div class="content">
-        <h3>I'm Rouhan</h3>
-        <span class="tag">AI/ML Engineer</span>
+        <h3>I'm Muhammad Rouhan</h3>
+        <span class="tag">AI Systems Engineer</span>
 
-        <p>I am an AI/ML Engineer and final-year CS student at FAST-NUCES Karachi, passionate about bridging the gap
-          between theoretical AI and real-world utility.
-
-          While I began my journey in application development (with a Summer 2025 internship in Flutter), I have since
-          pivoted entirely to Machine Learning Engineering. I leverage my background in software development to build
-          production-ready AI systems. I am actively looking for opportunities to apply my skills in Deep Learning and
-          MLOps to solve complex problems. </p>
+        <p>AI Engineer and Computer Science graduate from FAST NUCES Karachi, specializing in 
+          production-grade Retrieval-Augmented Generation (RAG) and multi-agent AI systems. 
+          I architect end-to-end, privacy-first pipelines—spanning vector search optimization, 
+          high-throughput ETL data ingestion, and local LLM orchestration. Leveraging a strong 
+          foundational background in cloud synchronization, concurrent software architectures, 
+          and containerized deployments, I bridge the gap between AI research and scalable, 
+          production-ready software systems. Seeking roles in AI Systems Engineering and LLMOps.</p>
 
         <div class="box-container">
           <div class="box">
@@ -88,7 +87,7 @@
 
         <div class="resumebtn">
           <a href="https://drive.google.com/drive/folders/1zE31pv1OrnPCK5KoBNvObeFwYah6oTyz" target="_blank"
-            class="btn"><span>Resume</span>
+            class="btn primary"><span>Resume</span>
             <i class="fas fa-chevron-right"></i>
           </a>
         </div>
@@ -96,15 +95,20 @@
       </div>
     </div>
   </section>
+
   <section class="skills" id="skills">
 
     <h2 class="heading"><i class="fas fa-laptop-code"></i> Skills & <span>Abilities</span></h2>
 
     <div class="container">
       <div class="row" id="skillsContainer">
+        <div class="loading-skills" style="grid-column: 1 / -1; text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-body-sm); padding: var(--space-3xl);">
+          Loading skills...
+        </div>
       </div>
     </div>
   </section>
+
   <section class="education" id="education">
 
     <h1 class="heading"><i class="fas fa-graduation-cap"></i> My <span>Education</span></h1>
@@ -137,6 +141,7 @@
 
     </div>
   </section>
+
   <section class="work" id="work">
 
     <h2 class="heading"><i class="fas fa-laptop-code"></i> Projects <span>Made</span></h2>
@@ -151,13 +156,14 @@
     </div>
 
   </section>
+
   <section class="experience" id="experience">
 
     <h2 class="heading"><i class="fas fa-briefcase"></i> Experience </h2>
 
     <div class="timeline">
 
-      <div class="container right">
+      <div class="container left">
         <div class="content">
           <div class="tag">
             <h2>FourMinds</h2>
@@ -171,9 +177,8 @@
 
     </div>
 
-    </div>
-
   </section>
+
   <section class="contact" id="contact">
 
     <h2 class="heading"><i class="fas fa-headset"></i> Get in <span>Touch</span></h2>
@@ -211,6 +216,7 @@
       </div>
     </div>
   </section>
+
   <section class="footer">
 
     <div class="box-container">
@@ -244,11 +250,13 @@
       </div>
     </div>
 
-    <h1 class="credit">Designed with <i class="fa fa-heart pulse"></i> by <a href="https://github.com/jigar-sable">
+    <h1 class="credit">Designed with <i class="fa fa-heart"></i> by <a href="https://github.com/jigar-sable">
         jigar sable</a> | Adapted by <a href="https://github.com/gitInfinity">Muhammad Rouhan</a></h1>
 
   </section>
+
   <a href="#home" aria-label="ScrollTop" class="fas fa-angle-up" id="scroll-top"></a>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
