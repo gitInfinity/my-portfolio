@@ -4,20 +4,20 @@
         "icon": "https://img.icons8.com/color/48/000000/python--v1.png"
     },
     {
-        "name": "TensorFlow",
-        "icon": "https://img.icons8.com/color/48/000000/tensorflow.png"
+        "name": "Langchain",
+        "icon" : "data:image/png;base64,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"
+   },
+    {
+        "name": "ollama",
+        "icon": "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/ollama-icon.png"
     },
     {
-        "name": "Scikit-learn",
-        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg"
+        "name": "Chromadb",
+        "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/chroma.webp"
     },
     {
-        "name": "C++",
-        "icon": "https://img.icons8.com/color/48/000000/c-plus-plus-logo.png"
-    },
-    {
-        "name": "Firebase",
-        "icon": "https://img.icons8.com/color/48/000000/firebase.png"
+        "name": "CrewAI",
+        "icon": "https://images.seeklogo.com/logo-png/61/2/crew-ai-logo-png_seeklogo-619843.png"
     },
     {
         "name": "Git",
@@ -28,23 +28,7 @@
         "icon": "https://img.icons8.com/glyph-neue/48/ffffff/github.png"
     },
     {
-        "name": "Git VCS",
-        "icon": "https://img.icons8.com/color/48/000000/git.png"
-    },
-    {
         "name": "MySQL",
         "icon": "https://img.icons8.com/color/48/000000/mysql-logo.png"
-    },
-     {
-        "name": "Flutter",
-        "icon": "https://img.icons8.com/color/48/000000/flutter.png"
-    },
-    {
-        "name": "Kotlin",
-        "icon": "https://img.icons8.com/color/48/000000/kotlin.png"
-    },
-    {
-        "name": "Android",
-        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg"
     }
 ]
