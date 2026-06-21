@@ -114,4 +114,3 @@ Deployed via **GitHub Pages** from the `main` branch. The `index.html` sits at t
 
 ## Credits
 
-Original template by [Jigar Sable](https://github.com/jigar-sable/Portfolio-Website), adapted and customized by Muhammad Rouhan.
