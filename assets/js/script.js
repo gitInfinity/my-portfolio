@@ -203,7 +203,7 @@ async function showProjects(projects) {
                 ${langTag}
               </div>
               <div class="btns">
-                ${project.homepage ? `<a href="${project.homepage}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>` : ''}
+                ${project.homepage ? `<button class="btn project-view-btn" data-video="assets/videos/hospital-demo.mp4" data-project="${project.name}"><i class="fas fa-play-circle"></i> View</button>` : ''}
                 <a href="${project.html_url}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
               </div>
             </div>
@@ -223,6 +223,55 @@ fetchData().then(data => {
 fetchData("projects").then(data => {
     showProjects(data);
 });
+
+/* ================================================
+   PROJECT VIDEO MODAL
+   ================================================ */
+(function () {
+    const overlay = document.getElementById('project-modal');
+    const videoEl = document.getElementById('project-modal-video');
+    const titleEl = document.getElementById('project-modal-title');
+    const closeBtn = document.getElementById('project-modal-close');
+
+    function openModal(videoSrc, projectName) {
+        const source = videoEl.querySelector('source');
+        source.src = videoSrc || '';
+        videoEl.load();
+        titleEl.textContent = projectName ? (projectName + ' — Demo') : 'Project Demo';
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        overlay.classList.remove('active');
+        videoEl.pause();
+        const source = videoEl.querySelector('source');
+        source.src = '';
+        videoEl.load();
+        document.body.style.overflow = '';
+    }
+
+    // Delegate click on View buttons
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.project-view-btn');
+        if (btn) {
+            e.preventDefault();
+            const videoSrc = btn.getAttribute('data-video');
+            const projectName = btn.getAttribute('data-project');
+            openModal(videoSrc, projectName);
+        }
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    });
+})();
 
 // <!-- tilt js effect starts -->
 VanillaTilt.init(document.querySelectorAll(".tilt"), {

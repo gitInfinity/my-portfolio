@@ -895,6 +895,112 @@ header .navbar ul li a:hover {
 }
 
 /* ================================================
+   PROJECT VIDEO MODAL
+   ================================================ */
+.project-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg);
+  backdrop-filter: blur(4px);
+}
+
+.project-modal-overlay.active {
+  display: flex;
+}
+
+.project-modal {
+  background: #1a1a2e;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--rounded-lg);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalIn 0.25s ease-out;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.project-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.project-modal-title {
+  font-size: var(--font-size-h3);
+  color: var(--color-neutral);
+  font-weight: var(--weight-semibold);
+  margin: 0;
+}
+
+.project-modal-close {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 2.8rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 var(--space-xs);
+  transition: color 0.2s;
+}
+
+.project-modal-close:hover {
+  color: var(--color-tertiary);
+}
+
+.project-modal-body {
+  padding: var(--space-md);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.project-modal-body video {
+  width: 100%;
+  max-height: 70vh;
+  border-radius: var(--rounded-md);
+  background: #000;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .project-modal-overlay {
+    padding: var(--space-sm);
+  }
+  .project-modal-header {
+    padding: var(--space-sm) var(--space-md);
+  }
+  .project-modal-body {
+    padding: var(--space-xs);
+  }
+  .project-modal-body video {
+    max-height: 60vh;
+  }
+}
+
+/* ================================================
    EXPERIENCE SECTION
    ================================================ */
 .experience .timeline {
